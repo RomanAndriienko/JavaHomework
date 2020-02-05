@@ -11,7 +11,7 @@ public class DemoLFU {
     public static void main(String[] args) {
         CacheService cacheService = new CacheService();
 
-        for (int i = 0; i < 25000; i++) {
+        for (int i = 0; i < 250000; i++) {
             CacheEntry cacheEntry = new CacheEntry(UUID.randomUUID().toString());
             cacheService.put(String.valueOf(i), cacheEntry);
         }
