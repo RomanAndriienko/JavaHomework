@@ -11,37 +11,18 @@ public class MyThread extends Thread {
 
     @Override
     public void run() {
-        if (threadName.equals("first")) {
-            try {
-                semaphore.acquire();
+        try {
+            semaphore.acquire();
 
-                System.out.println("Now working " + threadName);
+            System.out.println("Now working " + threadName);
 
-                for (int i = 1; i <= 10; i++) {
-                    System.out.println(i);
-                    Thread.sleep(100);
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Something goes wrong " + e);
+            for (int i = 1; i <= 10; i++) {
+                System.out.println(i);
+                Thread.sleep(100);
             }
-            semaphore.release();
+        } catch (InterruptedException e) {
+            System.out.println("Something goes wrong " + e);
         }
-
-        if (threadName.equals("second")) {
-            try {
-                semaphore.acquire();
-
-                System.out.println("Now working " + threadName);
-
-                for (int i = 1; i <= 10; i++) {
-                    System.out.println(i);
-                    Thread.sleep(100);
-                }
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            semaphore.release();
-        }
+        semaphore.release();
     }
 }

@@ -23,14 +23,10 @@ public class CacheService implements ICacheService<CacheEntry> {
     public void put(String key, CacheEntry cacheEntry) {
         long start = System.nanoTime();
 
-        String firstKey = "";
-
         if (isFull()) {
             Optional<Map.Entry<String, CacheEntry>> first = cache.entrySet().stream().findFirst();
-            if (first.isPresent()) {
-                firstKey = first.get().getKey();
-            }
-            logger.info(String.format("Deleted %s", cache.remove(firstKey)));
+
+            first.ifPresent(value -> logger.info(String.format("Deleted %s", cache.remove(value.getKey()))));
             cacheEviction++;
         }
         cache.put(key, cacheEntry);
