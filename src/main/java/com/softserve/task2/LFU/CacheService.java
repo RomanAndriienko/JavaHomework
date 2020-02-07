@@ -23,10 +23,10 @@ public class CacheService implements ICacheService<CacheEntry> {
 
     @Override
     public void put(String key, CacheEntry cacheEntry) {
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
 
         for (Map.Entry<String, CacheEntry> entry : cache.entrySet()) {
-            if (entry.getValue().getExpirationTime() < System.nanoTime()) {
+            if (entry.getValue().getExpirationTime() < System.currentTimeMillis()) {
                 removeFromCache(entry.getKey());
             }
         }
@@ -46,7 +46,7 @@ public class CacheService implements ICacheService<CacheEntry> {
     public CacheEntry get(String key) {
         if (cache.containsKey(key)) {
             CacheEntry entry = cache.get(key);
-            if (entry.getExpirationTime() > System.nanoTime()) {
+            if (entry.getExpirationTime() > System.currentTimeMillis()) {
                 updateExpirationTime(key);
                 return entry;
             }
@@ -57,7 +57,7 @@ public class CacheService implements ICacheService<CacheEntry> {
 
     private void updateExpirationTime(String key) {
         CacheEntry entry = cache.get(key);
-        entry.setExpirationTime(System.nanoTime() + TIME_TO_LIVE);
+        entry.setExpirationTime(System.currentTimeMillis() + TIME_TO_LIVE);
     }
 
     private void removeFromCache(String key) {

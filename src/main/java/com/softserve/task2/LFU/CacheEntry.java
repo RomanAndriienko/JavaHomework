@@ -16,6 +16,6 @@ public class CacheEntry {
 
     public CacheEntry(String name) {
         this.name = name;
-        expirationTime = System.nanoTime() + TIME_TO_LIVE;
+        expirationTime = System.currentTimeMillis() + TIME_TO_LIVE;
     }
 }
