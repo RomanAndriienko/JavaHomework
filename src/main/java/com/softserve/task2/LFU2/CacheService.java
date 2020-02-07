@@ -39,6 +39,15 @@ public class CacheService implements ICacheService<CacheEntry> {
 
     @Override
     public CacheEntry get(String key) {
+//        Optional<CacheEntry> cacheEntry = Optional.ofNullable(cache.get(key));
+//
+//        cacheEntry
+//                .map(entry -> {
+//                    cache.remove(key);
+//                    cache.put(key, entry);
+//                    return entry; })
+//                .orElseThrow(IllegalArgumentException::new);
+
         if (cache.containsKey(key)) {
 
             CacheEntry currentEntry = cache.get(key);
